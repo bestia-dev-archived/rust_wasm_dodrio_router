@@ -1,7 +1,7 @@
 # rust_wasm_router
 
 [comment]: # (lmake_readme cargo.toml data start)
-version: 0.4.2  date: 2020-04-25 authors: Luciano Bestia  
+version: 0.4.3  date: 2020-04-25 authors: Luciano Bestia  
 **wasm router for local hash routes**
 
 [comment]: # (lmake_readme cargo.toml data end)  

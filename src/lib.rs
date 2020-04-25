@@ -1,7 +1,7 @@
 // region: lmake_readme include "readme.md" //! A
 //! # rust_wasm_router
 //! 
-//! version: 0.4.2  date: 2020-04-25 authors: Luciano Bestia  
+//! version: 0.4.3  date: 2020-04-25 authors: Luciano Bestia  
 //! **wasm router for local hash routes**
 //! 
 //! 

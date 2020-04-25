@@ -1,6 +1,6 @@
 [package]
 name = "rust_wasm_router"
-version = "0.4.2"
+version = "0.4.3"
 authors = ["Luciano Bestia <Luciano.Bestia@gmail.com>"]
 edition = "2018"
 description = "wasm router for local hash routes"
@@ -9,7 +9,14 @@ readme = "README.md"
 license = "MIT"
 keywords = ["wasm","router","hash"]
 categories = ["wasm","web-programming"]
-publish = false
+# publish as a crates.io library. Only this files.
+publish = true
+include = [
+    "Cargo.toml",
+    "LICENSE",
+    "README.md",
+    "src/*",
+]
 
 [dependencies]
 rust_wasm_websys_utils = "0.4.3"

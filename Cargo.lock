@@ -188,7 +188,7 @@ dependencies = [
 
 [[package]]
 name = "rust_wasm_router"
-version = "0.4.2"
+version = "0.4.3"
 dependencies = [
  "dodrio",
  "js-sys",
