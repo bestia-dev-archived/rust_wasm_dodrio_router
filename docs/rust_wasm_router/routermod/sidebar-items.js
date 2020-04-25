@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["RouterTrait","methods for Router, some generic, some specific Traits cannot have fields. They must use access methods for every single field."]]});
