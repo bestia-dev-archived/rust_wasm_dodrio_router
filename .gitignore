@@ -5,4 +5,4 @@ wasm-pack.log
 /pkg
 
 # ignore Cargo.lock for lib.rs, but DONT ignore for main.rs
-#Cargo.lock
+Cargo.lock
