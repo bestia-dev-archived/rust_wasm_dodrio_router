@@ -1,6 +1,6 @@
 [package]
 name = "rust_wasm_router"
-version = "0.4.3"
+version = "0.4.5"
 authors = ["Luciano Bestia <Luciano.Bestia@gmail.com>"]
 edition = "2018"
 description = "wasm router for local hash routes"
@@ -23,8 +23,9 @@ rust_wasm_websys_utils = "0.4.3"
 # rust_wasm_websys_utils = {path = "../rust_wasm_websys_utils"}
 
 unwrap = "1.2.1"
-#dodrio =  { git = "https://github.com/fitzgen/dodrio", branch = "master" }
-dodrio = {path = "../dodrio"}
+# dodrio = "0.1.0"
+dodrio =  { git = "https://github.com/fitzgen/dodrio", branch = "master" }
+# dodrio = {path = "../dodrio"}
 wasm-bindgen = { version = "0.2.58", features = ["serde-serialize"] }
 #newer version of rand do not have smallring
 rand = { version = "0.7.3", features = ["wasm-bindgen","small_rng"] }
