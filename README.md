@@ -12,7 +12,7 @@ I needed a router for local hash routes in rust wasm for dodrio vdom.
 This library contains the generic parts.  
 
 In the project add a file/mod with specific implementation code like this example:  
-<https://github.com/LucianoBestia/mem6_game/blob/master/mem6/src/routerimplmod.rs>  
+<https://github.com/LucianoBestia/mem6_game/blob/master/mem6/src/router_impl_mod.rs>  
 
 ## cargo crev reviews and advisory
 
