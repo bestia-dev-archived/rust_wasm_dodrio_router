@@ -1,8 +1,8 @@
 # rust_wasm_dodrio_router
 
 [comment]: # (lmake_readme cargo.toml data start)
-version: 0.4.3  date: 2020-04-25 authors: Luciano Bestia  
-**wasm router for local hash routes**
+version: 0.4.6  date: 2020-05-09 authors: Luciano Bestia  
+**wasm router for local hash routes for dodrio vdom**
 
 [comment]: # (lmake_readme cargo.toml data end)  
 
