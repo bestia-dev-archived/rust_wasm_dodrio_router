@@ -1,6 +1,6 @@
 [package]
 name = "rust_wasm_router"
-version = "0.4.5"
+version = "0.4.6"
 authors = ["Luciano Bestia <Luciano.Bestia@gmail.com>"]
 edition = "2018"
 description = "wasm router for local hash routes for dodrio vdom"
@@ -20,22 +20,15 @@ include = [
 
 [dependencies]
 rust_wasm_websys_utils = "0.4.3"
-# rust_wasm_websys_utils = {path = "../rust_wasm_websys_utils"}
 
 unwrap = "1.2.1"
-# 2020-04-26 Luc: cannot publish to crates.io, because the dependency must be to crates.io
-# and dodrio new version is not there yet
-# dodrio = "0.1.0"
-# dodrio =  { git = "https://github.com/fitzgen/dodrio", branch = "master" }
-dodrio = {path = "../dodrio"}
-wasm-bindgen = { version = "0.2.58", features = ["serde-serialize"] }
-#newer version of rand do not have smallring
+dodrio = "0.2.0" 
+wasm-bindgen = { version = "0.2.62", features = ["serde-serialize"] }
 rand = { version = "0.7.3", features = ["wasm-bindgen","small_rng"] }
 js-sys = "0.3"
-serde ="1.0.104"
+serde = "1.0.107"
 serde_json = "1.0"
-# newer futures have unstable .await
-wasm-bindgen-futures = "0.4.8"
+wasm-bindgen-futures = "0.4.12"
 
 [dependencies.web-sys]
 version = "0.3.33"
@@ -70,4 +63,4 @@ features = [
 ]
 
 [dev-dependencies]
-wasm-bindgen-test = "0.3.8"
+wasm-bindgen-test = "0.3.12"

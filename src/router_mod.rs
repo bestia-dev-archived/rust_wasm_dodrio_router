@@ -1,6 +1,10 @@
-//! routermod - A simple `#`-fragment router for dodrio html templating
-//! This is the generic module. All the specifics for a website are isolated in the
-//! module routerimplmod.
+//! router_mod - A simple `#`-fragment local router for dodrio vdom and html templating
+//! This is the trait module. It is a lib crate.
+//! It does not know anything about the data model of the project.
+//! That is abstracted away with field get/set methods to implement.
+//! All the implementation for a project are isolated in the
+//! project module router_impl_mod.
+//! I couldn't abstract it away from dodrio vdom. It is still a dependency.
 
 //use crate::*;
 
@@ -11,46 +15,33 @@ use unwrap::unwrap;
 use wasm_bindgen::{prelude::*, JsCast};
 use wasm_bindgen_futures::spawn_local;
 
-// In Rust in the definition of Traits cannot have/use fields of the Struct,
-// because the struct is known only in the implementation time.
-
-/*
-/// Recommended struct for the implementation of this Trait
-pub struct Router {
-    /// local # hash route
-    pub local_route: String,
-}
-*/
-
-/// methods for Router, some generic, some specific
+/// methods for Router, some required to be implemented,
+/// other with default implementation in this file
 /// Traits cannot have fields. They must use access methods for every single field.
+/// dodrio is used for event handling, so I must
 pub trait RouterTrait {
-    // region: access methods for fields
-    fn get_local_route_from_self(&self) -> &str;
-    // endregion: access methods
-    // region: methods to be implemented for specific project
-    fn get_local_route_from_root(root: &mut dyn dodrio::RootRender) -> &str;
-    fn update_local_route_from_root(
-        local_route: String,
+    // region: fields get/set methods to be implemented for specific project
+    fn get_file_name_to_fetch_from_dodrio(root: &mut dyn dodrio::RootRender) -> &str;
+    fn set_file_name_to_fetch_from_dodrio(
+        file_name_to_fetch: String,
         root: &mut dyn dodrio::RootRender,
         vdom: VdomWeak,
     ) -> String;
-    fn update_html_template_and_sub_templates(
+    fn set_fetched_file(
         resp_body_text: String,
     ) -> Box<dyn Fn(&mut dyn dodrio::RootRender) + 'static>;
     // endregion: methods to be implemented
 
-    // region: generic methods (boilerplate)
-
+    // region: default implementations methods
     /// Start the router.
     fn start_router(&self, vdom: VdomWeak) {
         // Callback fired whenever the URL hash fragment changes.
-        // Keeps the rrc.router_data.local_route in sync with the `#` fragment.
+        // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
         let on_hash_change = Box::new(move || {
             let location = websysmod::window().location();
-            let mut short_local_route = unwrap!(location.hash());
-            if short_local_route.is_empty() {
-                short_local_route = "index".to_owned();
+            let mut short_route = unwrap!(location.hash());
+            if short_route.is_empty() {
+                short_route = "index".to_owned();
             }
             // websysmod::debug_write("after .hash");
             wasm_bindgen_futures::spawn_local({
@@ -60,17 +51,17 @@ pub trait RouterTrait {
                         .with_component({
                             let vdom = vdom_on_next_tick.clone();
                             // Callback fired whenever the URL hash fragment changes.
-                            // Keeps the rrc.router_data.local_route in sync with the `#` fragment.
+                            // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
                             move |root| {
-                                let short_local_route = short_local_route.clone();
-                                // If the rrc local_route already matches the event's
-                                // short_local_route, then there is nothing to do (ha). If they
-                                // don't match, then we need to update the rrc' local_route
+                                let short_route = short_route.clone();
+                                // If the rrc file_name_to_fetch already matches the event's
+                                // short_route, then there is nothing to do (ha). If they
+                                // don't match, then we need to set the rrc' file_name_to_fetch
                                 // and re-render.
-                                if Self::get_local_route_from_root(root) != short_local_route {
+                                if Self::get_file_name_to_fetch_from_dodrio(root) != short_route {
                                     // the function that recognizes routes and urls
-                                    let url = Self::update_local_route_from_root(
-                                        short_local_route,
+                                    let url = Self::set_file_name_to_fetch_from_dodrio(
+                                        short_route,
                                         root,
                                         vdom.clone(),
                                     );
@@ -81,11 +72,11 @@ pub trait RouterTrait {
                                             //websysmod::debug_write(&format!("fetch {}", &url));
                                             let resp_body_text: String =
                                                 websysmod::fetch_response(url).await;
-                                            // update values in rrc is async.
+                                            // set values in rrc is async.
                                             unwrap!(
                                                 vdom_on_next_tick
                                                     .with_component({
-                                                        Self::update_html_template_and_sub_templates(resp_body_text)
+                                                        Self::set_fetched_file(resp_body_text)
                                                     })
                                                     .await
                                             );
@@ -104,7 +95,7 @@ pub trait RouterTrait {
 
     fn set_on_hash_change_callback(&self, mut on_hash_change: Box<dyn FnMut()>) {
         // Callback fired whenever the URL hash fragment changes.
-        // Keeps the rrc.router_data.local_route in sync with the `#` fragment.
+        // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
         // Call it once to handle the initial `#` fragment.
         on_hash_change();
 
@@ -125,11 +116,28 @@ pub trait RouterTrait {
     // region: associated functions that don't need self
 
     /// get the first param after hash in local route after dot
-    /// example &p03.1234 -> 1234
-    fn get_url_param_in_hash_after_dot(short_local_route: &str) -> &str {
-        let mut spl = short_local_route.split('.');
-        unwrap!(spl.next());
-        unwrap!(spl.next())
+    /// example #p03.1234 -> 1234
+    fn get_url_param_in_hash_after_dot(short_route: &str) -> &str {
+        // I cannot test associated methods. So I make a normal private fn.
+        private_get_url_param_in_hash_after_dot(short_route)
     }
     // endregion: associated function
+}
+
+/// I cannot test associated methods. So I make a normal private fn.
+fn private_get_url_param_in_hash_after_dot(short_route: &str) -> &str {
+    let mut spl = short_route.split('.');
+    unwrap!(spl.next());
+    unwrap!(spl.next())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_url_param_in_hash_after_dot() {
+        let x = private_get_url_param_in_hash_after_dot("#p03.1234");
+        assert_eq!("1234", x);
+    }
 }
