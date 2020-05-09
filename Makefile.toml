@@ -1,4 +1,4 @@
-# rust_wasm_router/Makefile.toml
+# rust_wasm_dodrio_router/Makefile.toml
 #https://github.com/sagiegurari/cargo-make/blob/master/src/lib/Makefile.stable.toml
 
 [config]

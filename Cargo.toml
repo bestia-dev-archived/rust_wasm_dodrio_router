@@ -1,10 +1,10 @@
 [package]
-name = "rust_wasm_router"
+name = "rust_wasm_dodrio_router"
 version = "0.4.6"
 authors = ["Luciano Bestia <Luciano.Bestia@gmail.com>"]
 edition = "2018"
 description = "wasm router for local hash routes for dodrio vdom"
-repository = "https://github.com/LucianoBestia/rust_wasm_router"
+repository = "https://github.com/LucianoBestia/rust_wasm_dodrio_router"
 readme = "README.md"
 license = "MIT"
 keywords = ["wasm","router","hash"]
@@ -19,8 +19,9 @@ include = [
 ]
 
 [dependencies]
+# my dependencies
 rust_wasm_websys_utils = "0.4.3"
-
+# other dependencies
 unwrap = "1.2.1"
 dodrio = "0.2.0" 
 wasm-bindgen = { version = "0.2.62", features = ["serde-serialize"] }
