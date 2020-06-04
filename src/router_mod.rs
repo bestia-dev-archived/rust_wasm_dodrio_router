@@ -21,8 +21,10 @@ use wasm_bindgen_futures::spawn_local;
 /// dodrio is used for event handling, so I must
 pub trait RouterTrait {
     // region: fields get/set methods to be implemented for specific project
-    fn get_file_name_to_fetch_from_dodrio(root: &mut dyn dodrio::RootRender) -> &str;
+    fn get_location_hash(&self) -> &str;
+    fn get_file_name_to_fetch_from_dodrio(&self) -> &str;
     fn set_file_name_to_fetch_from_dodrio(
+        &mut self,
         file_name_to_fetch: String,
         root: &mut dyn dodrio::RootRender,
         vdom: VdomWeak,
@@ -39,10 +41,7 @@ pub trait RouterTrait {
         // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
         let on_hash_change = Box::new(move || {
             let location = websysmod::window().location();
-            let mut short_route = unwrap!(location.hash());
-            if short_route.is_empty() {
-                short_route = "index".to_owned();
-            }
+            let mut location_hash = unwrap!(location.hash());
             // websysmod::debug_write("after .hash");
             wasm_bindgen_futures::spawn_local({
                 let vdom_on_next_tick = vdom.clone();
@@ -53,15 +52,15 @@ pub trait RouterTrait {
                             // Callback fired whenever the URL hash fragment changes.
                             // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
                             move |root| {
-                                let short_route = short_route.clone();
+                                let location_hash = location_hash.clone();
                                 // If the rrc file_name_to_fetch already matches the event's
-                                // short_route, then there is nothing to do (ha). If they
+                                // location_hash, then there is nothing to do (ha). If they
                                 // don't match, then we need to set the rrc' file_name_to_fetch
                                 // and re-render.
-                                if Self::get_file_name_to_fetch_from_dodrio(root) != short_route {
+                                if Self::get_file_name_to_fetch_from_dodrio(root) != location_hash {
                                     // the function that recognizes routes and urls
                                     let url = Self::set_file_name_to_fetch_from_dodrio(
-                                        short_route,
+                                        location_hash,
                                         root,
                                         vdom.clone(),
                                     );
@@ -117,16 +116,16 @@ pub trait RouterTrait {
 
     /// get the first param after hash in local route after dot
     /// example #p03.1234 -> 1234
-    fn get_url_param_in_hash_after_dot(short_route: &str) -> &str {
+    fn get_url_param_in_hash_after_dot(location_hash: &str) -> &str {
         // I cannot test associated methods. So I make a normal private fn.
-        private_get_url_param_in_hash_after_dot(short_route)
+        private_get_url_param_in_hash_after_dot(location_hash)
     }
     // endregion: associated function
 }
 
 /// I cannot test associated methods. So I make a normal private fn.
-fn private_get_url_param_in_hash_after_dot(short_route: &str) -> &str {
-    let mut spl = short_route.split('.');
+fn private_get_url_param_in_hash_after_dot(location_hash: &str) -> &str {
+    let mut spl = location_hash.split('.');
     unwrap!(spl.next());
     unwrap!(spl.next())
 }

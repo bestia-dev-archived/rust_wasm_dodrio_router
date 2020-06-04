@@ -19,7 +19,7 @@
 //! to verify the trustworthiness of each of your dependencies.  
 //! Please, spread this info.  
 //! On the web use this url to read crate reviews. Example:  
-//! <https://bestia.dev/cargo_crev_web/query/num-traits>  
+//! <https://web.crev.dev/rust-reviews/crate/num-traits>  
 // endregion: lmake_readme include "readme.md" //! A
 
 pub mod router_mod;
