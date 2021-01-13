@@ -8,9 +8,8 @@
 
 //use crate::*;
 
-use rust_wasm_websys_utils::websysmod;
-
 use dodrio::VdomWeak;
+use rust_wasm_websys_utils::websysmod;
 use unwrap::unwrap;
 use wasm_bindgen::{prelude::*, JsCast};
 use wasm_bindgen_futures::spawn_local;
@@ -21,15 +20,16 @@ use wasm_bindgen_futures::spawn_local;
 /// dodrio is used for event handling, so I must
 pub trait RouterTrait {
     // region: fields get/set methods to be implemented for specific project
+    /// get location hash
     fn get_location_hash(&self) -> &str;
-    fn get_file_name_to_fetch_from_dodrio(&self) -> &str;
-    fn set_file_name_to_fetch_from_dodrio(
-        &mut self,
-        file_name_to_fetch: String,
-        root: &mut dyn dodrio::RootRender,
-        vdom: VdomWeak,
-    ) -> String;
-    fn set_fetched_file(
+    /// get file name
+    fn get_file_name_to_fetch(&self) -> &str;
+    /// set file name
+    fn set_file_name_to_fetch(&mut self, file_name_to_fetch: String, vdom: VdomWeak) -> String;
+    /// from root to router data
+    fn from_root_to_router_data(root: &mut dyn dodrio::RootRender) -> &mut Self;
+    /// fn to prepare fetched html for render
+    fn fn_to_prepare_fetched_html_for_render(
         resp_body_text: String,
     ) -> Box<dyn Fn(&mut dyn dodrio::RootRender) + 'static>;
     // endregion: methods to be implemented
@@ -41,7 +41,7 @@ pub trait RouterTrait {
         // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
         let on_hash_change = Box::new(move || {
             let location = websysmod::window().location();
-            let mut location_hash = unwrap!(location.hash());
+            let location_hash_new = unwrap!(location.hash());
             // websysmod::debug_write("after .hash");
             wasm_bindgen_futures::spawn_local({
                 let vdom_on_next_tick = vdom.clone();
@@ -52,18 +52,17 @@ pub trait RouterTrait {
                             // Callback fired whenever the URL hash fragment changes.
                             // Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.
                             move |root| {
-                                let location_hash = location_hash.clone();
+                                let router_data = Self::from_root_to_router_data(root);
+                                let location_hash_new = location_hash_new.clone();
                                 // If the rrc file_name_to_fetch already matches the event's
-                                // location_hash, then there is nothing to do (ha). If they
+                                // location_hash_new, then there is nothing to do (ha). If they
                                 // don't match, then we need to set the rrc' file_name_to_fetch
                                 // and re-render.
-                                if Self::get_file_name_to_fetch_from_dodrio(root) != location_hash {
+                                //websysmod::debug_write(&format!("before get_file_name_to_fetch {}", now_performance()));
+                                if router_data.get_location_hash() != location_hash_new {
                                     // the function that recognizes routes and urls
-                                    let url = Self::set_file_name_to_fetch_from_dodrio(
-                                        location_hash,
-                                        root,
-                                        vdom.clone(),
-                                    );
+                                    let url = router_data
+                                        .set_file_name_to_fetch(location_hash_new, vdom.clone());
                                     // I cannot simply await here because this closure is not async
                                     spawn_local({
                                         let vdom_on_next_tick = vdom.clone();
@@ -75,7 +74,9 @@ pub trait RouterTrait {
                                             unwrap!(
                                                 vdom_on_next_tick
                                                     .with_component({
-                                                        Self::set_fetched_file(resp_body_text)
+                                                        Self::fn_to_prepare_fetched_html_for_render(
+                                                            resp_body_text,
+                                                        )
                                                     })
                                                     .await
                                             );
@@ -109,22 +110,12 @@ pub trait RouterTrait {
             .unwrap_throw();
         on_hash_change.forget();
     }
-
     // endregion: generic methods
-
-    // region: associated functions that don't need self
-
-    /// get the first param after hash in local route after dot
-    /// example #p03.1234 -> 1234
-    fn get_url_param_in_hash_after_dot(location_hash: &str) -> &str {
-        // I cannot test associated methods. So I make a normal private fn.
-        private_get_url_param_in_hash_after_dot(location_hash)
-    }
-    // endregion: associated function
 }
 
-/// I cannot test associated methods. So I make a normal private fn.
-fn private_get_url_param_in_hash_after_dot(location_hash: &str) -> &str {
+/// get the first param after hash in local route after dot
+/// example #p03.1234 -> 1234
+pub fn get_url_param_in_hash_after_dot(location_hash: &str) -> &str {
     let mut spl = location_hash.split('.');
     unwrap!(spl.next());
     unwrap!(spl.next())
@@ -136,7 +127,7 @@ mod tests {
 
     #[test]
     fn test_get_url_param_in_hash_after_dot() {
-        let x = private_get_url_param_in_hash_after_dot("#p03.1234");
+        let x = get_url_param_in_hash_after_dot("#p03.1234");
         assert_eq!("1234", x);
     }
 }

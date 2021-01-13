@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rust_wasm_dodrio_router/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rust_wasm_dodrio_router/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -25,33 +28,45 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="comment">// region: lmake_readme include &quot;readme.md&quot; //! A</span>
+<span class="comment">// region: lmake_md_to_doc_comments include README.md A //!</span>
 <span class="doccomment">//! # rust_wasm_dodrio_router</span>
-<span class="doccomment">//! </span>
-<span class="doccomment">//! version: 0.4.6  date: 2020-05-09 authors: Luciano Bestia  </span>
-<span class="doccomment">//! **wasm router for local hash routes for dodrio vdom**</span>
-<span class="doccomment">//! </span>
-<span class="doccomment">//! </span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! **wasm router for local hash routes for dodrio vdom**  </span>
+<span class="doccomment">//! ***[repo](https://github.com/LucianoBestia/rust_wasm_dodrio_router); version: 0.5.2  date: 2021-01-13 authors: Luciano Bestia***  </span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-80-green.svg)](https://github.com/LucianoBestia/rust_wasm_router/)</span>
+<span class="doccomment">//! [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-40-blue.svg)](https://github.com/LucianoBestia/rust_wasm_router/)</span>
+<span class="doccomment">//! [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-30-purple.svg)](https://github.com/LucianoBestia/rust_wasm_router/)</span>
+<span class="doccomment">//! [![Lines in examples](https://img.shields.io/badge/Lines_in_examples-0-yellow.svg)](https://github.com/LucianoBestia/rust_wasm_router/)</span>
+<span class="doccomment">//! [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-9-orange.svg)](https://github.com/LucianoBestia/rust_wasm_router/)</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! ## local router with hash for dodrio vdom</span>
-<span class="doccomment">//! </span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! I needed a router for local hash routes in rust wasm for dodrio vdom.  </span>
 <span class="doccomment">//! This library contains the generic parts.  </span>
-<span class="doccomment">//! </span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! In the project add a file/mod with specific implementation code like this example:  </span>
-<span class="doccomment">//! &lt;https://github.com/LucianoBestia/mem6_game/blob/master/mem6/src/routerimplmod.rs&gt;  </span>
-<span class="doccomment">//! </span>
+<span class="doccomment">//! &lt;https://github.com/LucianoBestia/unforgettable7_game/blob/master/unforgettable7/src/router_impl_mod.rs&gt;  </span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! ## cargo crev reviews and advisory</span>
-<span class="doccomment">//! </span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! It is recommended to always use [cargo-crev](https://github.com/crev-dev/cargo-crev)  </span>
 <span class="doccomment">//! to verify the trustworthiness of each of your dependencies.  </span>
 <span class="doccomment">//! Please, spread this info.  </span>
 <span class="doccomment">//! On the web use this url to read crate reviews. Example:  </span>
-<span class="doccomment">//! &lt;https://web.crev.dev/cargo_crev_web/crate/num-traits&gt;  </span>
-<span class="comment">// endregion: lmake_readme include &quot;readme.md&quot; //! A</span>
+<span class="doccomment">//! &lt;https://web.crev.dev/rust-reviews/crate/num-traits/&gt;  </span>
+<span class="doccomment">//!</span>
+<span class="comment">// endregion: lmake_md_to_doc_comments include README.md A //!</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">router_mod</span>;
 
 <span class="comment">// use rust_wasm_websys_utils::*;</span>
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rust_wasm_dodrio_router";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rust_wasm_dodrio_router";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

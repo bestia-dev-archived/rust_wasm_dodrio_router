@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/router_mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>router_mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rust_wasm_dodrio_router/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/router_mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>router_mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rust_wasm_dodrio_router/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -131,16 +134,6 @@
 <span id="131">131</span>
 <span id="132">132</span>
 <span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! router_mod - A simple `#`-fragment local router for dodrio vdom and html templating</span>
 <span class="doccomment">//! This is the trait module. It is a lib crate.</span>
@@ -152,9 +145,8 @@
 
 <span class="comment">//use crate::*;</span>
 
-<span class="kw">use</span> <span class="ident">rust_wasm_websys_utils</span>::<span class="ident">websysmod</span>;
-
 <span class="kw">use</span> <span class="ident">dodrio</span>::<span class="ident">VdomWeak</span>;
+<span class="kw">use</span> <span class="ident">rust_wasm_websys_utils</span>::<span class="ident">websysmod</span>;
 <span class="kw">use</span> <span class="ident">unwrap</span>::<span class="ident">unwrap</span>;
 <span class="kw">use</span> <span class="ident">wasm_bindgen</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">JsCast</span>};
 <span class="kw">use</span> <span class="ident">wasm_bindgen_futures</span>::<span class="ident">spawn_local</span>;
@@ -165,15 +157,18 @@
 <span class="doccomment">/// dodrio is used for event handling, so I must</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RouterTrait</span> {
     <span class="comment">// region: fields get/set methods to be implemented for specific project</span>
-    <span class="kw">fn</span> <span class="ident">get_file_name_to_fetch_from_dodrio</span>(<span class="ident">root</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">dodrio</span>::<span class="ident">RootRender</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span>;
-    <span class="kw">fn</span> <span class="ident">set_file_name_to_fetch_from_dodrio</span>(
-        <span class="ident">file_name_to_fetch</span>: <span class="ident">String</span>,
-        <span class="ident">root</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">dodrio</span>::<span class="ident">RootRender</span>,
-        <span class="ident">vdom</span>: <span class="ident">VdomWeak</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>;
-    <span class="kw">fn</span> <span class="ident">set_fetched_file</span>(
+    <span class="doccomment">/// get location hash</span>
+    <span class="kw">fn</span> <span class="ident">get_location_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span>;
+    <span class="doccomment">/// get file name</span>
+    <span class="kw">fn</span> <span class="ident">get_file_name_to_fetch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span>;
+    <span class="doccomment">/// set file name</span>
+    <span class="kw">fn</span> <span class="ident">set_file_name_to_fetch</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">file_name_to_fetch</span>: <span class="ident">String</span>, <span class="ident">vdom</span>: <span class="ident">VdomWeak</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span>;
+    <span class="doccomment">/// from root to router data</span>
+    <span class="kw">fn</span> <span class="ident">from_root_to_router_data</span>(<span class="ident">root</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">dodrio</span>::<span class="ident">RootRender</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>;
+    <span class="doccomment">/// fn to prepare fetched html for render</span>
+    <span class="kw">fn</span> <span class="ident">fn_to_prepare_fetched_html_for_render</span>(
         <span class="ident">resp_body_text</span>: <span class="ident">String</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">dodrio</span>::<span class="ident">RootRender</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dyn</span> <span class="ident">dodrio</span>::<span class="ident">RootRender</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>;
     <span class="comment">// endregion: methods to be implemented</span>
 
     <span class="comment">// region: default implementations methods</span>
@@ -183,46 +178,44 @@
         <span class="comment">// Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.</span>
         <span class="kw">let</span> <span class="ident">on_hash_change</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="ident">websysmod</span>::<span class="ident">window</span>().<span class="ident">location</span>();
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">short_route</span> <span class="op">=</span> <span class="macro">unwrap</span><span class="macro">!</span>(<span class="ident">location</span>.<span class="ident">hash</span>());
-            <span class="kw">if</span> <span class="ident">short_route</span>.<span class="ident">is_empty</span>() {
-                <span class="ident">short_route</span> <span class="op">=</span> <span class="string">&quot;index&quot;</span>.<span class="ident">to_owned</span>();
-            }
+            <span class="kw">let</span> <span class="ident">location_hash_new</span> <span class="op">=</span> <span class="macro">unwrap</span><span class="macro">!</span>(<span class="ident">location</span>.<span class="ident">hash</span>());
             <span class="comment">// websysmod::debug_write(&quot;after .hash&quot;);</span>
             <span class="ident">wasm_bindgen_futures</span>::<span class="ident">spawn_local</span>({
                 <span class="kw">let</span> <span class="ident">vdom_on_next_tick</span> <span class="op">=</span> <span class="ident">vdom</span>.<span class="ident">clone</span>();
-                <span class="kw">async</span> <span class="kw">move</span> {
+                <span class="ident">async</span> <span class="kw">move</span> {
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">vdom_on_next_tick</span>
                         .<span class="ident">with_component</span>({
                             <span class="kw">let</span> <span class="ident">vdom</span> <span class="op">=</span> <span class="ident">vdom_on_next_tick</span>.<span class="ident">clone</span>();
                             <span class="comment">// Callback fired whenever the URL hash fragment changes.</span>
                             <span class="comment">// Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.</span>
                             <span class="kw">move</span> <span class="op">|</span><span class="ident">root</span><span class="op">|</span> {
-                                <span class="kw">let</span> <span class="ident">short_route</span> <span class="op">=</span> <span class="ident">short_route</span>.<span class="ident">clone</span>();
+                                <span class="kw">let</span> <span class="ident">router_data</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">from_root_to_router_data</span>(<span class="ident">root</span>);
+                                <span class="kw">let</span> <span class="ident">location_hash_new</span> <span class="op">=</span> <span class="ident">location_hash_new</span>.<span class="ident">clone</span>();
                                 <span class="comment">// If the rrc file_name_to_fetch already matches the event&#39;s</span>
-                                <span class="comment">// short_route, then there is nothing to do (ha). If they</span>
+                                <span class="comment">// location_hash_new, then there is nothing to do (ha). If they</span>
                                 <span class="comment">// don&#39;t match, then we need to set the rrc&#39; file_name_to_fetch</span>
                                 <span class="comment">// and re-render.</span>
-                                <span class="kw">if</span> <span class="self">Self</span>::<span class="ident">get_file_name_to_fetch_from_dodrio</span>(<span class="ident">root</span>) <span class="op">!</span><span class="op">=</span> <span class="ident">short_route</span> {
+                                <span class="comment">//websysmod::debug_write(&amp;format!(&quot;before get_file_name_to_fetch {}&quot;, now_performance()));</span>
+                                <span class="kw">if</span> <span class="ident">router_data</span>.<span class="ident">get_location_hash</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">location_hash_new</span> {
                                     <span class="comment">// the function that recognizes routes and urls</span>
-                                    <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">set_file_name_to_fetch_from_dodrio</span>(
-                                        <span class="ident">short_route</span>,
-                                        <span class="ident">root</span>,
-                                        <span class="ident">vdom</span>.<span class="ident">clone</span>(),
-                                    );
+                                    <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">router_data</span>
+                                        .<span class="ident">set_file_name_to_fetch</span>(<span class="ident">location_hash_new</span>, <span class="ident">vdom</span>.<span class="ident">clone</span>());
                                     <span class="comment">// I cannot simply await here because this closure is not async</span>
                                     <span class="ident">spawn_local</span>({
                                         <span class="kw">let</span> <span class="ident">vdom_on_next_tick</span> <span class="op">=</span> <span class="ident">vdom</span>.<span class="ident">clone</span>();
-                                        <span class="kw">async</span> <span class="kw">move</span> {
+                                        <span class="ident">async</span> <span class="kw">move</span> {
                                             <span class="comment">//websysmod::debug_write(&amp;format!(&quot;fetch {}&quot;, &amp;url));</span>
                                             <span class="kw">let</span> <span class="ident">resp_body_text</span>: <span class="ident">String</span> <span class="op">=</span>
-                                                <span class="ident">websysmod</span>::<span class="ident">fetch_response</span>(<span class="ident">url</span>).<span class="kw">await</span>;
+                                                <span class="ident">websysmod</span>::<span class="ident">fetch_response</span>(<span class="ident">url</span>).<span class="ident">await</span>;
                                             <span class="comment">// set values in rrc is async.</span>
                                             <span class="macro">unwrap</span><span class="macro">!</span>(
                                                 <span class="ident">vdom_on_next_tick</span>
                                                     .<span class="ident">with_component</span>({
-                                                        <span class="self">Self</span>::<span class="ident">set_fetched_file</span>(<span class="ident">resp_body_text</span>)
+                                                        <span class="self">Self</span>::<span class="ident">fn_to_prepare_fetched_html_for_render</span>(
+                                                            <span class="ident">resp_body_text</span>,
+                                                        )
                                                     })
-                                                    .<span class="kw">await</span>
+                                                    .<span class="ident">await</span>
                                             );
                                             <span class="ident">vdom</span>.<span class="ident">schedule_render</span>();
                                         }
@@ -230,14 +223,14 @@
                                 }
                             }
                         })
-                        .<span class="kw">await</span>;
+                        .<span class="ident">await</span>;
                 }
             });
         });
         <span class="self">self</span>.<span class="ident">set_on_hash_change_callback</span>(<span class="ident">on_hash_change</span>);
     }
 
-    <span class="kw">fn</span> <span class="ident">set_on_hash_change_callback</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">on_hash_change</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnMut</span>()<span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">set_on_hash_change_callback</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">on_hash_change</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">FnMut</span>()<span class="op">&gt;</span>) {
         <span class="comment">// Callback fired whenever the URL hash fragment changes.</span>
         <span class="comment">// Keeps the rrc.router_data.file_name_to_fetch in sync with the `#` fragment.</span>
         <span class="comment">// Call it once to handle the initial `#` fragment.</span>
@@ -254,23 +247,13 @@
             .<span class="ident">unwrap_throw</span>();
         <span class="ident">on_hash_change</span>.<span class="ident">forget</span>();
     }
-
     <span class="comment">// endregion: generic methods</span>
-
-    <span class="comment">// region: associated functions that don&#39;t need self</span>
-
-    <span class="doccomment">/// get the first param after hash in local route after dot</span>
-    <span class="doccomment">/// example #p03.1234 -&gt; 1234</span>
-    <span class="kw">fn</span> <span class="ident">get_url_param_in_hash_after_dot</span>(<span class="ident">short_route</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="comment">// I cannot test associated methods. So I make a normal private fn.</span>
-        <span class="ident">private_get_url_param_in_hash_after_dot</span>(<span class="ident">short_route</span>)
-    }
-    <span class="comment">// endregion: associated function</span>
 }
 
-<span class="doccomment">/// I cannot test associated methods. So I make a normal private fn.</span>
-<span class="kw">fn</span> <span class="ident">private_get_url_param_in_hash_after_dot</span>(<span class="ident">short_route</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">spl</span> <span class="op">=</span> <span class="ident">short_route</span>.<span class="ident">split</span>(<span class="string">&#39;.&#39;</span>);
+<span class="doccomment">/// get the first param after hash in local route after dot</span>
+<span class="doccomment">/// example #p03.1234 -&gt; 1234</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_url_param_in_hash_after_dot</span>(<span class="ident">location_hash</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">spl</span> <span class="op">=</span> <span class="ident">location_hash</span>.<span class="ident">split</span>(<span class="string">&#39;.&#39;</span>);
     <span class="macro">unwrap</span><span class="macro">!</span>(<span class="ident">spl</span>.<span class="ident">next</span>());
     <span class="macro">unwrap</span><span class="macro">!</span>(<span class="ident">spl</span>.<span class="ident">next</span>())
 }
@@ -281,9 +264,9 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_get_url_param_in_hash_after_dot</span>() {
-        <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">private_get_url_param_in_hash_after_dot</span>(<span class="string">&quot;#p03.1234&quot;</span>);
+        <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">get_url_param_in_hash_after_dot</span>(<span class="string">&quot;#p03.1234&quot;</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="string">&quot;1234&quot;</span>, <span class="ident">x</span>);
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rust_wasm_dodrio_router";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rust_wasm_dodrio_router";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

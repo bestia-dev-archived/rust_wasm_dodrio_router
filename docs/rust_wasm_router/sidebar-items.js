@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["routermod","routermod - A simple `#`-fragment router for dodrio html templating This is the generic module. All the specifics for a website are isolated in the module routerimplmod."]]});
