@@ -1,4 +1,5 @@
 [comment]: # (lmake_md_to_doc_comments segment start A)
+
 # rust_wasm_dodrio_router
 
 [comment]: # (lmake_cargo_toml_to_md start)
@@ -22,8 +23,9 @@
 I needed a router for local hash routes in rust wasm for dodrio vdom.  
 This library contains the generic parts.  
 
-In the project add a file/mod with specific implementation code like this example:  
-<https://github.com/LucianoBestia/unforgettable7_game/blob/master/unforgettable7/src/router_impl_mod.rs>  
+## Used in projects
+
+<https://github.com/LucianoBestia/unforgettable7_game>  
 
 ## cargo crev reviews and advisory
 

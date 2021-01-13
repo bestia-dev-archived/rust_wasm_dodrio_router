@@ -1,5 +1,5 @@
 # rust_wasm_dodrio_router/Makefile.toml
-# https://github.com/sagiegurari/cargo-make/blob/master/src/lib/Makefile.stable.toml
+# https://github.com/sagiegurari/cargo-make
 
 [config]
 skip_core_tasks = true
@@ -10,28 +10,31 @@ clear = true
 script= [
 "clear",
 "echo ",
-"echo ORDER OF EXECUTING MAKE TASKS:",
 "echo ",
-"echo     clear - clear the screen",
-"echo     cargo make - this list",
-"echo 01. ..... change your code in the editor",
-"echo 02. cargo make dev - build developer versions",
-"echo 04. cargo make test - test the test code",
-"echo 05. cargo make increment_minor - if needed increment semver minor",
-"echo 06. cargo make release - build release version, increment semver patch in Cargo.toml",
+"echo COMMANDS AND MAKE TASKS:",
 "echo ",
-"echo 08. cargo make doc - includes from Cargo.toml to README.md and from README.md to main.rs or lib.rs, generates doc and copies to docs folder, exports codetour to .md.",
-"echo 09. cargo make commit commit_message - git commit ",
-"echo 11. cargo make gitpush - git push",
-"echo 12. cargo make crates_io_dry_run - prepare publishing for crates.io",
-"echo 13. cargo make crates_io_publish - gittag and publish to crates.io",
+"echo $ clear - clear the screen",
+"echo $ cargo make - this list",
 "echo ",
-"echo LIST PREPARED RUN WITH ARGUMENTS - separate debug and release versions",
-"echo cargo make run_rel0 - no arguments - target/release/${CARGO_MAKE_CRATE_NAME}",
+"echo $ cargo make check - check code errors without compiling",
+"echo $ cargo make dev - build developer versions",
 "echo ",
-"echo CREV - always verify you dependencies",
-"echo cargo crev verify",
-"echo "
+"echo $ cargo make check - check code errors without compiling",
+"echo $ cargo make release - build release version, increment semver patch in Cargo.toml",
+"echo ",
+"echo $ cargo make test - test the test code",
+"echo $ cargo make increment_minor - if needed increment semver minor",
+"echo $ cargo crev verify - always verify you dependencies",
+"echo $ cargo make audit - RustSec advisories",
+"echo $ cargo make doc - includes from Cargo.toml to README.md and from README.md to main.rs or lib.rs, generates doc and copies to docs folder, exports codetour to .md.",
+"echo ",
+"echo $ cargo make commit commit_message - git commit ",
+"echo $ cargo make amend  - amend to last commit ",
+"echo $ cargo make git_push - git push",
+"echo ",
+"echo $ cargo make crates_io_dry_run - prepare publishing for crates.io",
+"echo $ cargo make crates_io_publish - git tag and publish to crates.io",
+"echo ",
 ]
 
 # end of help
@@ -60,14 +63,9 @@ script = [
     "cargo build",
 ]
 
-[tasks.test]
-description = "cargo test"
-clear = true
-script = [
-    "clear",
-    "echo $ cargo test",
-    "cargo test",
-]
+# end of dev scripts
+# end of dev scripts
+# end of dev scripts
 
 [tasks.release]
 description = "cargo build release"
@@ -83,17 +81,34 @@ script = [
     "cargo build --release",
 ]
 
-[tasks.run_rel0]
-description = "no-argument - target/release/${CARGO_MAKE_CRATE_NAME}"
+# end of release scripts
+# end of release scripts
+# end of release scripts
+
+[tasks.test]
+description = "cargo test"
 clear = true
 script = [
-    "echo $ target/release/${CARGO_MAKE_CRATE_NAME}",
-    "target/release/${CARGO_MAKE_CRATE_NAME}",
+    "clear",
+    "echo $ cargo test",
+    "cargo test",
 ]
-	
-# end of run scripts
-# end of run scripts
-# end of run scripts
+
+[tasks.increment_minor]
+description = "increments semver minor"
+clear = true
+script = [
+    "clear",
+    "lmake_semver --increment=minor",
+]
+
+[tasks.verify]
+description = "cargo crev verify - "
+clear = true
+script = [
+    "clear",
+    "cargo crev verify"
+]
 
 [tasks.audit]
 description = "cargo audit - RustSec advisories"
@@ -141,7 +156,7 @@ script = [
     "git add -A",
     "echo $ git commit -a -m \"${@}\"",
     "git commit -a -m \"${@}\"",
-    "echo after successful fmt and git commit, run $ cargo make gitpush",
+    "echo after successful fmt and git commit, run $ cargo make git_push",
 ]
 
 [tasks.amend]
@@ -155,10 +170,10 @@ script = [
     "git add .",
     "echo $ git commit --amend",
     "git commit --amend",
-    "echo after successful git commit, run $ cargo make gitpush",
+    "echo after successful git commit, run $ cargo make git_push",
 ]
 
-[tasks.gitpush]
+[tasks.git_push]
 description = "push the commits to github, uses ssh agent"
 clear = true
 script = [
@@ -168,9 +183,9 @@ script = [
     "echo after successful git push, use $ cargo make crates_io_dry_run or publish_to_web",
 ]
 
-# end of publish script
-# end of publish script
-# end of publish script
+# end of git script
+# end of git script
+# end of git script
 
 [tasks.crates_io_dry_run]
 clear = true
@@ -184,10 +199,10 @@ script = [
 
 [tasks.crates_io_publish]
 clear = true
-description = "gittag and publish to crates.io"
+description = "git tag and publish to crates.io"
 script = [
     "clear",
-    # gittag
+    # git tag
     "echo $ git tag -f -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}",
     "git tag -f -a v${CARGO_MAKE_CRATE_VERSION} -m version_${CARGO_MAKE_CRATE_VERSION}",
     # cargo publish
@@ -197,14 +212,6 @@ script = [
     "echo $ cargo install ${CARGO_MAKE_CRATE_NAME}"
 ]
 
-# end of crates.io publish script
-# end of crates.io publish script
-# end of crates.io publish script
-
-[tasks.increment_minor]
-description = "increments semver minor"
-clear = true
-script = [
-    "clear",
-    "lmake_semver --increment=minor",
-]
+# end of publish script
+# end of publish script
+# end of publish script

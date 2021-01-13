@@ -1,10 +1,10 @@
-name: RustAction
+name: rust
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -19,6 +19,6 @@ jobs:
     - name: Fmt
       run: cargo fmt -- --check
     - name: Build
-      run: cargo build
+      run: cargo build --release
     - name: Run tests
       run: cargo test
