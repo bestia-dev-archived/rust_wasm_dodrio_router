@@ -20,10 +20,11 @@ script= [
 "echo $ cargo make dev - build developer versions",
 "echo ",
 "echo $ cargo make check - check code errors without compiling",
+"echo $ cargo make increment_minor - if needed increment semver minor",
 "echo $ cargo make release - build release version, increment semver patch in Cargo.toml",
 "echo ",
 "echo $ cargo make test - test the test code",
-"echo $ cargo make increment_minor - if needed increment semver minor",
+"echo $ cargo make udeps - cargo +nightly udeps - unused dependencies",
 "echo $ cargo crev verify - always verify you dependencies",
 "echo $ cargo make audit - RustSec advisories",
 "echo $ cargo make doc - includes from Cargo.toml to README.md and from README.md to main.rs or lib.rs, generates doc and copies to docs folder, exports codetour to .md.",
@@ -67,6 +68,14 @@ script = [
 # end of dev scripts
 # end of dev scripts
 
+[tasks.increment_minor]
+description = "increments semver minor"
+clear = true
+script = [
+    "clear",
+    "lmake_semver --increment=minor",
+]
+
 [tasks.release]
 description = "cargo build release"
 clear = true
@@ -94,12 +103,11 @@ script = [
     "cargo test",
 ]
 
-[tasks.increment_minor]
-description = "increments semver minor"
+[tasks.udeps]
+description = "lists unused dependencies needs nightly"
 clear = true
 script = [
-    "clear",
-    "lmake_semver --increment=minor",
+	"cargo +nightly udeps",
 ]
 
 [tasks.verify]
