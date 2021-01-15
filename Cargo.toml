@@ -19,8 +19,9 @@ include = [
 ]
 
 [dependencies]
-# my dependencies
+# my dependencies from crates.io
 rust_wasm_websys_utils = "0.4.3"
+
 # other dependencies
 unwrap = "1.2.1"
 dodrio = "0.2.0" 
