@@ -2,6 +2,7 @@
 name = "rust_wasm_dodrio_router"
 version = "0.5.2"
 authors = ["bestia.dev"]
+homepage = "https://bestia.dev"
 edition = "2018"
 description = "wasm router for local hash routes for dodrio vdom"
 repository = "https://github.com/bestia-dev/rust_wasm_dodrio_router"
