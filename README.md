@@ -14,7 +14,7 @@
  [![crev reviews](https://web.crev.dev/rust-reviews/badge/crev_count/rust_wasm_dodrio_router.svg)](https://web.crev.dev/rust-reviews/crate/rust_wasm_dodrio_router/)
  [![RustActions](https://github.com/bestia-dev/rust_wasm_dodrio_router/workflows/rust/badge.svg)](https://github.com/bestia-dev/rust_wasm_dodrio_router/)
  [![latest doc](https://img.shields.io/badge/latest_docs-GitHub-orange.svg)](https://bestia-dev.github.io/rust_wasm_dodrio_router/rust_wasm_dodrio_router/index.html)
- [![Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/rust_wasm_dodrio_router/blob/master/LICENSE)
+ [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bestia-dev/rust_wasm_dodrio_router/blob/master/LICENSE)
  [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbestia-dev%2Frust_wasm_dodrio_router&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 [comment]: # (lmake_lines_of_code start)
@@ -25,6 +25,8 @@
 [![Lines in tests](https://img.shields.io/badge/Lines_in_tests-9-orange.svg)](https://github.com/bestia-dev/rust_wasm_router/)
 
 [comment]: # (lmake_lines_of_code end)
+
+Hashtags: #rustlang #tutorial
 
 ## local router with hash for dodrio vdom
 
