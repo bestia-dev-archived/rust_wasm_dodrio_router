@@ -26,7 +26,8 @@
 
 [comment]: # (lmake_lines_of_code end)
 
-Hashtags: #rustlang #tutorial
+Hashtags: #rustlang #tutorial  
+My projects on Github are more like a tutorial than a finished product: [bestia-dev tutorials](https://github.com/bestia-dev/tutorials_rust_wasm).
 
 ## local router with hash for dodrio vdom
 
