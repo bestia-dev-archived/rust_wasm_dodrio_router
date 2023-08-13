@@ -21,6 +21,7 @@
 ![Hits](https://bestia.dev/webpage_hit_counter/get_svg_image/280090913.svg) 
 
 [comment]: # (lmake_lines_of_code start)
+
 [![Lines in Rust code](https://img.shields.io/badge/Lines_in_Rust-80-green.svg)](https://github.com/bestia-dev/rust_wasm_router/)
 [![Lines in Doc comments](https://img.shields.io/badge/Lines_in_Doc_comments-46-blue.svg)](https://github.com/bestia-dev/rust_wasm_router/)
 [![Lines in Comments](https://img.shields.io/badge/Lines_in_comments-30-purple.svg)](https://github.com/bestia-dev/rust_wasm_router/)
